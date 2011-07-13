@@ -273,9 +273,11 @@
 			$ul.find('a').click(function(){
 					$('a.selected', $wrapper).removeClass('selected');
 					$(this).addClass('selected');	
-					/* Fire the onchange event */
-					if ($select[0].selectedIndex != $(this).attr('index') && $select[0].onchange) { $select[0].selectedIndex = $(this).attr('index'); $select[0].onchange(); }
+					var prevIndex = $select[0].selectedIndex;
 					$select[0].selectedIndex = $(this).attr('index');
+					/* Fire the onchange event */
+					if(prevIndex != $select[0].selectedIndex)
+					  $select.change();
 					$('span:eq(0)', $wrapper).html($(this).html());
 					$ul.hide();
 					return false;
