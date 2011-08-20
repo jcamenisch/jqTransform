@@ -314,9 +314,28 @@
 			// Calculate the height if necessary, less elements that the default height
 			//show the ul to calculate the block, if ul is not displayed li height value is 0
 			$ul.css({display:'block',visibility:'hidden'});
+			if ($ul.is(':hidden')) {
+			  var hidden_containers = $($ul.parentsUntil(':visible').get().reverse());
+			  hidden_containers.each(function(){
+			    var $this = $(this)
+			    if ($this.is(':hidden')) {
+  			    $this.data('style', $this.attr('style') || false);
+  			    $this.css({
+  			      position: 'absolute',
+  			      left: '-10000px',
+  			      display: 'block'
+  			    });
+  			  }
+			  });
+			}
 			var iSelectHeight = ($('li',$ul).length)*($('li:first',$ul).height());//+1 else bug ff
 			(iSelectHeight < $ul.height()) && $ul.css({height:iSelectHeight,'overflow':'hidden'});//hidden else bug with ff
 			$ul.css({display:'none',visibility:'visible'});
+			if (hidden_containers) hidden_containers.each(function(){
+			  var $this = $(this);
+			  if (typeof $this.data('style') != 'undefined')
+			    $this.attr('style', $this.data('style') || '');
+			});
 			
 		});
 		if( result.length ) jqTransformAddDocumentListener();
