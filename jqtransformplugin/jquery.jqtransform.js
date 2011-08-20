@@ -245,7 +245,7 @@
 	  Select 
 	 ***************************/	
 	$.fn.jqTransSelect = function(){
-		return this.each(function(index){
+		var result = this.each(function(index){
 			var $select = $(this);
 
 			if($select.hasClass('jqTransformHidden')) {return;}
@@ -319,7 +319,10 @@
 			$ul.css({display:'none',visibility:'visible'});
 			
 		});
+		if( result.length ) jqTransformAddDocumentListener();
+		return result;
 	};
+
 	$.fn.jqTransform = function(options){
 		var opt = $.extend({},defaultOptions,options);
 		
@@ -334,8 +337,7 @@
 			$('input:checkbox', this).jqTransCheckBox();
 			$('input:radio', this).jqTransRadio();
 			$('textarea', this).jqTransTextarea();
-			
-			if( $('select', this).jqTransSelect().length > 0 ){jqTransformAddDocumentListener();}
+			$('select', this).jqTransSelect()
 			selfForm.bind('reset',function(){var action = function(){jqTransformReset(this);}; window.setTimeout(action, 10);});
 			
 			//preloading dont needed anymore since normal, focus and hover image are the same one
