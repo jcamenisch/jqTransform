@@ -279,17 +279,19 @@
           if(prevIndex != $select[0].selectedIndex)
             $select.change();
           $('span:eq(0)', $wrapper).html($(this).html());
-          $(this).closest('ul').trigger('collapse'); //cannot use $ul and still be cloneable
+          $ul.trigger('collapse');
           return false;
         });
-        $ul.bind('collapse', function(){
+        $ul.bind('collapse', function(){ // Call instead of hide() to return state to normal
           $(this).hide();
           var $clone = $wrapper.data('clone');
           if ($clone) {
-            $clone.remove();
-            $wrapper.data('clone', null);
+            $wrapper.attr('style', $clone.attr('style'));
+            $clone.hide();
+            $wrapper.insertAfter($clone);
           }
-        })
+        });
+
         /* Set the default */
         $('a:eq('+ this.selectedIndex +')', $ul).click();
         $('span:first', $wrapper).click(function(){$("a.jqTransformSelectOpen",$wrapper).trigger('click');});
@@ -299,32 +301,40 @@
         /* Apply the click handler to the Open */
         var oLinkOpen = $('a.jqTransformSelectOpen', $wrapper)
           .click(function(){
-            var $local_ul = $(this).closest('.jqTransformSelectWrapper').find('ul');
 
-            //Check if box is already open to still allow toggle, but close all other selects
-            if( $local_ul.css('display') == 'none' ) {jqTransformHideSelect();} 
-            if($select.attr('disabled')){return false;}
+            // Check if box is already open to still allow toggle
+            if( $ul.css('display') == 'none' ) {
+              jqTransformHideSelect();
 
-            if ($(this).data('is-clone')) {
-              $local_ul.slideToggle('fast', function(){         
-                var offSet = ($('a.selected', $local_ul).offset().top - $local_ul.offset().top);
-                $local_ul.animate({scrollTop: offSet});
+              if($select.attr('disabled')){return false;}
+
+              $ul.slideToggle('fast', function(){         
+                var offSet = ($('a.selected', $ul).offset().top - $ul.offset().top);
+                $ul.animate({scrollTop: offSet});
               });
-            } else {
-              var $clone = $wrapper.clone(true, true);
-              $wrapper.data('clone',$clone);
-              $clone
+            
+              if (!$wrapper.data('clone')) {
+                var $clone = $wrapper.clone()
+                  .hide()
+                  .insertBefore($wrapper);
+                $wrapper.data('clone',$clone);
+              } else {
+                var $clone = $wrapper.data('clone');
+              }
+          
+              $clone.show();
+              $wrapper
+                .appendTo('body')
                 .css({
                   position: 'absolute',
-                  top: $wrapper.offset().top,
-                  left: $wrapper.offset().left
+                  top: $clone.offset().top,
+                  left: $clone.offset().left
                 })
-                .appendTo('body')
-                .find('a.jqTransformSelectOpen')
-                  .data('is-clone',true)
-                  .click()
               ;
-            }           
+            } else {
+              // Close all other selects
+              jqTransformHideSelect();
+            } 
             return false;
           })
         ;
