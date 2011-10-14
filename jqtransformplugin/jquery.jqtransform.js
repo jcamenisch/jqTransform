@@ -269,6 +269,17 @@
           $ul.append(oLi);
         });
         
+        /* Call instead of $ul.hide() to return state to normal */
+        $ul.bind('collapse', function(){
+          $(this).hide();
+          var $clone = $wrapper.data('clone');
+          if ($clone) {
+            $wrapper.attr('style', $clone.attr('style'));
+            $clone.hide();
+            $wrapper.insertAfter($clone);
+          }
+        });
+
         /* Add click handler to the a */
         $ul.find('a').click(function(){
           $('a.selected', $wrapper).removeClass('selected');
@@ -282,32 +293,27 @@
           $ul.trigger('collapse');
           return false;
         });
-        $ul.bind('collapse', function(){ // Call instead of hide() to return state to normal
-          $(this).hide();
-          var $clone = $wrapper.data('clone');
-          if ($clone) {
-            $wrapper.attr('style', $clone.attr('style'));
-            $clone.hide();
-            $wrapper.insertAfter($clone);
-          }
-        });
 
         /* Set the default */
         $('a:eq('+ this.selectedIndex +')', $ul).click();
-        $('span:first', $wrapper).click(function(){$("a.jqTransformSelectOpen",$wrapper).trigger('click');});
-        oLabel && oLabel.click(function(){$("a.jqTransformSelectOpen",$wrapper).trigger('click');});
+        var oLinkOpen = $("a.jqTransformSelectOpen",$wrapper)
+        $('span:first', $wrapper).click(function(){oLinkOpen.trigger('click');});
+        oLabel && oLabel.click(function(){oLinkOpen.trigger('click');});
         this.oLabel = oLabel;
         
         /* Apply the click handler to the Open */
-        var oLinkOpen = $('a.jqTransformSelectOpen', $wrapper)
+        oLinkOpen
           .click(function(){
 
-            // Check if box is already open to still allow toggle
-            if( $ul.css('display') == 'none' ) {
-              jqTransformHideSelect();
+            var already_open = $ul.is(':visible');
+            jqTransformHideSelect(); // Toggle closed or close other selects.
 
+            if( !already_open ) {
+            
               if($select.attr('disabled')){return false;}
 
+              // Calculate width every time to adjust for any DOM changes
+              $ul.css({width: ($wrapper.width() - oLinkOpen.width() - 1)+'px'});
               $ul.slideToggle('fast', function(){         
                 var offSet = ($('a.selected', $ul).offset().top - $ul.offset().top);
                 $ul.animate({scrollTop: offSet});
@@ -328,12 +334,11 @@
                 .css({
                   position: 'absolute',
                   top: $clone.offset().top,
-                  left: $clone.offset().left
+                  left: $clone.offset().left,
+                  width: $clone.width()+'px',
+                  height: $clone.height()+'px'
                 })
               ;
-            } else {
-              // Close all other selects
-              jqTransformHideSelect();
             } 
             return false;
           })
@@ -343,9 +348,7 @@
         var iSelectWidth = $select.outerWidth();
         var oSpan = $('span:first',$wrapper);
         var newWidth = (iSelectWidth > oSpan.innerWidth())?iSelectWidth+oLinkOpen.outerWidth():$wrapper.width();
-        $wrapper.css('width',newWidth);
-        $ul.css('width',newWidth-2);
-        oSpan.css({width:iSelectWidth});
+        $wrapper.css({width: newWidth});
       
         // Calculate the height if necessary, less elements that the default height
         //show the ul to calculate the block, if ul is not displayed li height value is 0
