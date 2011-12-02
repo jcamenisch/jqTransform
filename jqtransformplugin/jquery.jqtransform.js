@@ -315,8 +315,8 @@
               if($select.attr('disabled')){return false;}
 
               // Calculate width every time to adjust for any DOM changes
-              $ul.css({width: ($wrapper.width() - oLinkOpen.width() - 1)+'px'});
-              $ul.slideToggle('fast', function(){         
+              $ul.css({width: ($wrapper.width() - 1)+'px'});
+              $ul.slideToggle('fast', function(){
                 var offSet = ($('a.selected', $ul).offset().top - $ul.offset().top);
                 $ul.animate({scrollTop: offSet});
               });
