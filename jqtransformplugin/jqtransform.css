@@ -159,7 +159,7 @@ button.jqTransformButton_click span {
 }
 
 .jqTransformSafari .jqTransformInputInner div input {
-  background-color: none;
+  background-color: transparent;
   position: absolute;
   top: -10px;
   left: -2px;
