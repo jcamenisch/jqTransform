@@ -384,7 +384,6 @@ a.jqTransformChecked {
 }
 
 .jqTransformSelectWrapper div span {
-
   font-size: 12px;
   float: none;
   position: absolute;
@@ -394,6 +393,7 @@ a.jqTransformChecked {
   padding: 8px 0 0 7px;
   overflow: hidden;
   cursor: pointer;
+  width: 93%;
   /*border: 1px solid #CCCCCC;*/
   /*	border-right: none;*/
 }
