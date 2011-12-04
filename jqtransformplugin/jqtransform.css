@@ -87,7 +87,6 @@ button.jqTransformButton_click span {
   background: transparent url(img/input/input_text_left.gif) no-repeat left top;
   height: 31px;
   padding: 0;
-  float: left;
 }
 
 .jqTransformInputInner {
@@ -322,8 +321,6 @@ table.jqTransformTextarea .jqTransformSafariTextarea textarea {
 * Radios
 * ------------- */
 .jqTransformRadioWrapper {
-  float: left;
-  display: block;
   margin: 0 4px;
   margin-top: 5px;
 }
@@ -333,15 +330,13 @@ table.jqTransformTextarea .jqTransformSafariTextarea textarea {
   vertical-align: middle;
   height: 19px;
   width: 18px;
-  display: block; /*display: -moz-inline-block;*/
+  display: inline-block; /* see http://www.quirksmode.org/css/display.html */
 }
 
 /* -------------
 * Checkboxes
 * ------------- */
 span.jqTransformCheckboxWrapper {
-  display: block;
-  float: left;
   margin-top: 5px;
 }
 
@@ -350,7 +345,7 @@ a.jqTransformCheckbox {
   vertical-align: middle;
   height: 19px;
   width: 18px;
-  display: block; /*display: -moz-inline-block;*/
+  display: inline-block; /* see http://www.quirksmode.org/css/display.html */
 }
 
 /* -------------
