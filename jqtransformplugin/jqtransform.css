@@ -1,9 +1,3 @@
-form.jqtransformdone label {
-  margin-top: 4px;
-  margin-right: 8px;
-  display: block;
-  float: left;
-}
 
 form.jqtransformdone div.rowElem {
   clear: both;
@@ -374,7 +368,6 @@ a.jqTransformChecked {
   position: relative;
   height: 31px;
   background: url(img/select_left.gif) no-repeat top left;
-  float: left;
 }
 
 .jqTransformSelectWrapper li {

@@ -1,4 +1,4 @@
-/*
+/**
  *
  * jqTransform
  * by mathieu vilaplana mvilaplana@dfc-e.com
