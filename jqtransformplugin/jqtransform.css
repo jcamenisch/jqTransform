@@ -359,6 +359,7 @@ a.jqTransformChecked {
 * Selects
 * ------------- */
 .jqTransformSelectWrapper {
+  display: block;
   width: 45px;
   position: relative;
   height: 31px;
