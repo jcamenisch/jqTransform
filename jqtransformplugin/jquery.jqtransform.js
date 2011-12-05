@@ -345,10 +345,9 @@
           $select[0].selectedIndex = $(this).attr('index');
           /* Fire the onchange event */
           if (prevIndex != $select[0].selectedIndex) {
-            // @TODO: this should trigger the onchange event on the original
-            // select but it currently (at least in Chrome) triggers the cloned
-            // version
-            //$select.change();
+            var $clone = $wrapper.data('clone');
+            var $original_select = $('select', $clone);
+            $original_select.trigger('change');
           }
           $('span:eq(0)', $wrapper).html($(this).html());
           $ul.trigger('collapse');
