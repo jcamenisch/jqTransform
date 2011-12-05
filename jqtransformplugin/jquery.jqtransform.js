@@ -371,8 +371,8 @@
           if (!already_open && !$select.attr('disabled')) {
 
             // Calculate width every time to adjust for any DOM changes
-            $ul.css({width: ($wrapper.width() - 1)+'px'});
-            $ul.slideToggle('fast', function() {
+            $ul.css({width: ($wrapper.width() - 1) + 'px'});
+            $ul.slideToggle('fast', function () {
               var offSet = ($('a.selected', $ul).offset().top - $ul.offset().top);
               $ul.animate({scrollTop: offSet});
             });
@@ -394,8 +394,8 @@
                 position: 'absolute',
                 top: $clone.offset().top,
                 left: $clone.offset().left,
-                width: $clone.width()+'px',
-                height: $clone.height()+'px'
+                width: $clone.width() + 'px',
+                height: $clone.height() + 'px'
               })
             ;
           } 
@@ -406,11 +406,11 @@
         var iSelectWidth = $select.outerWidth();
         var oSpan = $('span:first', $wrapper);
         var newWidth = (iSelectWidth > oSpan.innerWidth()) ? iSelectWidth + oLinkOpen.outerWidth() : $wrapper.width();
-        $wrapper.css({width:newWidth});
+        $wrapper.css({width: newWidth});
 
         // Calculate the height if necessary, less elements that the default height
         //show the ul to calculate the block, if ul is not displayed li height value is 0
-        $ul.css({display:'block', visibility:'hidden'});
+        $ul.css({display: 'block', visibility: 'hidden'});
         if ($ul.is(':hidden')) {
           var hidden_containers = $($ul.parentsUntil(':visible').get().reverse());
           hidden_containers.each(function () {
@@ -418,16 +418,16 @@
             if ($this.is(':hidden')) {
               $this.data('style', $this.attr('style') || false);
               $this.css({
-                position:'absolute',
-                left:'-10000px',
-                display:'block'
+                position: 'absolute',
+                left: '-10000px',
+                display: 'block'
               });
             }
           });
         }
         var iSelectHeight = ($('li', $ul).length) * ($('li:first', $ul).height());//+1 else bug ff
-        (iSelectHeight < $ul.height()) && $ul.css({height:iSelectHeight, 'overflow':'hidden'});//hidden else bug with ff
-        $ul.css({display:'none', visibility:'visible'});
+        (iSelectHeight < $ul.height()) && $ul.css({height: iSelectHeight, 'overflow': 'hidden'});//hidden else bug with ff
+        $ul.css({display: 'none', visibility: 'visible'});
         if (hidden_containers) hidden_containers.each(function () {
           var $this = $(this);
           if (typeof $this.data('style') != 'undefined')
