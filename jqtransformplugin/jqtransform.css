@@ -383,6 +383,7 @@ a.jqTransformChecked {
   overflow: hidden;
   cursor: pointer;
   width: 93%;
+  display: block;
   /*border: 1px solid #CCCCCC;*/
   /*	border-right: none;*/
 }
