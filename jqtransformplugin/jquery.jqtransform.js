@@ -1,8 +1,10 @@
-/*
- * jqTransform
- * by mathieu vilaplana mvilaplana@dfc-e.com
- * Designer ghyslain armand garmand@dfc-e.com
- *
+/*!
+ * jqTransform (http://www.dfc-e.com/metiers/multimedia/opensource/jqtransform/)
+ * by Mathieu Vilaplana mvilaplana@dfc-e.com
+ * Designer Ghyslain Armand garmand@dfc-e.com
+ * License: GPL
+ ******************************************** */
+ /*
  * Version 1.0 25.09.08
  * Version 1.1 06.08.09
  * Add event click on Checkbox and Radio
