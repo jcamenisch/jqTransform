@@ -80,7 +80,7 @@
    ***************************/
   $.fn.jqTransInputButton = function(){
     return this.each(function(){
-      var newBtn = $('<button id="'+ this.id +'" name="'+ this.name +'" type="'+ this.type +'" class="'+ this.className +' jqTransformButton"><span><span>'+ $(this).attr('value') +'</span></span>')
+      var newBtn = $('<button id="'+ this.id +'" name="'+ this.name +'" type="'+ this.type +'" class="'+ this.className +' jqTransformButton" value="' + $(this).attr('value') + '"><span><span>'+ $(this).attr('value') +'</span></span>')
         .hover(function(){newBtn.addClass('jqTransformButton_hover');},function(){newBtn.removeClass('jqTransformButton_hover')})
         .mousedown(function(){newBtn.addClass('jqTransformButton_click')})
         .mouseup(function(){newBtn.removeClass('jqTransformButton_click')})
