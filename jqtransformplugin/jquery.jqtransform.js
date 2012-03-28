@@ -253,16 +253,18 @@
 
         var oLabel  =  jqTransformGetLabel($select);
         /* First thing we do is Wrap it */
-        var $wrapper = $select
-          .addClass('jqTransformHidden')
-          .wrap('<div class="jqTransformSelectWrapper"></div>')
-          .parent()
-          .css({zIndex: 99-index})
+        var
+          selectWidth = $select.width(),
+          $wrapper = $select
+            .addClass('jqTransformHidden')
+            .wrap('<div class="jqTransformSelectWrapper"></div>')
+            .parent()
+            .css({width: selectWidth, zIndex: 99-index})
         ;
         
         /* Now add the html for the select */
         $wrapper.prepend('<div><span></span><a href="#" class="jqTransformSelectOpen"></a></div><ul></ul>');
-        var $ul = $('ul', $wrapper).css('width',$select.width()).hide();
+        var $ul = $('ul', $wrapper).css('width',selectWidth).hide();
         /* Now we add the options */
         $('option', this).each(function(i){
           var oLi = $('<li><a href="#" index="'+ i +'">'+ $(this).html() +'</a></li>');
@@ -323,6 +325,7 @@
                 var $clone = $wrapper.clone()
                   .hide()
                   .insertBefore($wrapper);
+                $clone.find('select').attr('disabled', 'disabled');
                 $wrapper.data('clone',$clone);
               } else {
                 var $clone = $wrapper.data('clone');
