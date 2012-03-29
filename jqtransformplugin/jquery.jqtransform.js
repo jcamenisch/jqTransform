@@ -400,7 +400,7 @@
 
             // Calculate dimensions every time to adjust for any DOM changes
             $ul.css({
-              width: $select.jqTransformGetDimension('width') - 1,
+              width: $select.jqTransformGetDimension('width') - 2,
               top:   $wrapper.jqTransformGetDimension('outerHeight')
             });
             
