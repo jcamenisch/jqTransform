@@ -330,6 +330,8 @@ table.jqTransformTextarea .jqTransformSafariTextarea textarea {
   vertical-align: middle;
   height: 19px;
   width: 18px;
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
   display: inline-block; /* see http://www.quirksmode.org/css/display.html */
 }
 
@@ -345,6 +347,8 @@ a.jqTransformCheckbox {
   vertical-align: middle;
   height: 19px;
   width: 18px;
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
   display: inline-block; /* see http://www.quirksmode.org/css/display.html */
 }
 
