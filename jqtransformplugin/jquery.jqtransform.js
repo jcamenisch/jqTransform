@@ -32,14 +32,14 @@
    Labels
    ***************************/
   var jqTransformGetLabel = function (objfield) {
-    var selfForm = $(objfield.get(0).form);
+    var $form = $(objfield.get(0).form);
     var oLabel = objfield.next();
     if (!oLabel.is('label')) {
       oLabel = objfield.prev();
       if (oLabel.is('label')) {
         var inputname = objfield.attr('id');
         if (inputname) {
-          oLabel = selfForm.find('label[for="' + inputname + '"]');
+          oLabel = $form.find('label[for="' + inputname + '"]');
         }
       }
     }
@@ -479,11 +479,11 @@
 
     /* each form */
     return this.each(function () {
-      var selfForm = $(this);
-      if (selfForm.hasClass('jqtransformdone')) {
+      var $form = $(this);
+      if ($form.hasClass('jqtransformdone')) {
         return;
       }
-      selfForm.addClass('jqtransformdone');
+      $form.addClass('jqtransformdone');
       
       $('input:submit, input:reset, input[type="button"]', this).jqTransInputButton();
       $('input:text, input:password, input[type="email"]', this).jqTransInputText();
@@ -492,7 +492,7 @@
       $('textarea', this).jqTransTextarea();
       $('select', this).jqTransSelect()
 
-      selfForm.bind('reset', function () {
+      $form.bind('reset', function () {
         var action = function () {
           jqTransformReset(this);
         };
