@@ -364,6 +364,7 @@ a.jqTransformChecked {
   position: relative;
   height: 31px;
   background: url(img/select_left.gif) no-repeat top left;
+  text-align: left;
 }
 
 .jqTransformSelectWrapper li {
