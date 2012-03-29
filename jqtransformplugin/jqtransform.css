@@ -400,7 +400,6 @@ a.jqTransformChecked {
 .jqTransformSelectWrapper ul {
   position: absolute;
   width: 43px;
-  top: 30px;
   left: 0;
   list-style: none;
   background-color: #FFF;

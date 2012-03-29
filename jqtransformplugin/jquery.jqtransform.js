@@ -325,18 +325,28 @@
 
         var oLabel = jqTransformGetLabel($select);
         /* First thing we do is Wrap it */
-        var
-          selectWidth = $select.jqTransformGetDimension('width'),
-          $wrapper = $select
-            .addClass('jqTransformHidden')
-            .wrap('<div class="jqTransformSelectWrapper"></div>')
-            .parent()
-            .css({width: selectWidth, zIndex: 99-index})
+        var selectWidth = $select.jqTransformGetDimension('width');
+        $select
+          .addClass('jqTransformHidden')
+          .wrap('<div class="jqTransformSelectWrapper"></div>')
         ;
+        var
+          $wrapper = $select.parent(),
+          wrapperHeight = $wrapper.jqTransformGetDimension('outerHeight')
+        ;
+        $wrapper.css({width: selectWidth, zIndex: 99 - index})
 
         /* Now add the html for the select */
         $wrapper.prepend('<div><span></span><a href="#" class="jqTransformSelectOpen"></a></div><ul></ul>');
-        var $ul = $('ul', $wrapper).css('width', selectWidth).hide();
+        var $ul = $('ul', $wrapper)
+        $ul
+          .css({
+            width: selectWidth,
+            top: wrapperHeight
+          })
+          .hide()
+        ;
+
         /* Now we add the options */
         $('option', this).each(function (i) {
           var oLi = $('<li><a href="#" index="' + i + '">' + $(this).html() + '</a></li>');
@@ -360,6 +370,7 @@
           $(this).addClass('selected');
           var prevIndex = $select[0].selectedIndex;
           $select[0].selectedIndex = $(this).attr('index');
+          
           /* Fire the onchange event */
           if (prevIndex != $select[0].selectedIndex) {
             var $clone = $wrapper.data('clone');
