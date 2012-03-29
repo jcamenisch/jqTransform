@@ -324,16 +324,17 @@
         if ($select.hasClass('jqTransformHidden') || $select.attr('multiple')) return;
 
         var oLabel = jqTransformGetLabel($select);
+
         /* First thing we do is Wrap it */
         var selectWidth = $select.jqTransformGetDimension('width');
-        $select
-          .addClass('jqTransformHidden')
-          .wrap('<div class="jqTransformSelectWrapper"></div>')
-        ;
+        $select.addClass('jqTransformHidden');
+        $select.wrap('<div class="jqTransformSelectWrapper"></div>');
+        
         var
           $wrapper = $select.parent(),
           wrapperHeight = $wrapper.jqTransformGetDimension('outerHeight')
         ;
+
         $wrapper.css({width: selectWidth, zIndex: 99 - index})
 
         /* Now add the html for the select */
