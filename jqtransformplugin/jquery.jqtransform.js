@@ -97,14 +97,11 @@
    * @param method
    */
   $.fn.jqTransformGetDimension = function (method) {
-    if ($.fn.actual) {
-      // use jQuery Actual plugin to get the dimension
-      return this.actual(method);
-    }
-    else {
-      // use standard jQuery dimensions method
-      return $.fn[method].call(this);
-    }
+    // use jQuery Actual plugin to get the dimension
+    if ($.fn.actual) return this.actual(method);
+
+    // otherwise use standard jQuery dimensions method
+    return $.fn[method].call(this);
   };
 
   /***************************
@@ -399,9 +396,17 @@
           if (!already_open && !$select.attr('disabled')) {
 
             // Calculate dimensions every time to adjust for any DOM changes
+            function enoughSpaceBelow () {
+              var
+                ulHeight = $ul.jqTransformGetDimension('outerHeight');
+                spaceBelow = $(window).height() - $wrapper.outerHeight() - $wrapper.offset().top
+              ;
+              return ulHeight < spaceBelow;
+            }
             $ul.css({
-              width: $select.jqTransformGetDimension('width') - 2,
-              top:   $wrapper.jqTransformGetDimension('outerHeight')
+              width:  $select.jqTransformGetDimension('width') - 2,
+              top:    enoughSpaceBelow() ? $wrapper.outerHeight() : '',
+              bottom: enoughSpaceBelow() ? '' : $wrapper.outerHeight()
             });
             
             $ul.slideToggle('fast', function () {
@@ -424,10 +429,10 @@
               .appendTo('body')
               .css({
                 position: 'absolute',
-                top: $clone.offset().top,
-                left: $clone.offset().left,
-                width: $clone.width() + 'px',
-                height: $clone.height() + 'px'
+                top:      $clone.offset().top,
+                left:     $clone.offset().left,
+                width:    $clone.width(),
+                height:   $clone.height()
               })
             ;
           } 
