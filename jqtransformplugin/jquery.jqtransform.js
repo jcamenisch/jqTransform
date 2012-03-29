@@ -330,21 +330,17 @@
         $select.addClass('jqTransformHidden');
         $select.wrap('<div class="jqTransformSelectWrapper"></div>');
         
-        var
-          $wrapper = $select.parent(),
-          wrapperHeight = $wrapper.jqTransformGetDimension('outerHeight')
-        ;
+        var $wrapper = $select.parent();
 
-        $wrapper.css({width: selectWidth, zIndex: 99 - index})
 
         /* Now add the html for the select */
-        $wrapper.prepend('<div><span></span><a href="#" class="jqTransformSelectOpen"></a></div><ul></ul>');
+        $wrapper
+          .css({width: selectWidth, zIndex: 99 - index})
+          .prepend('<div><span></span><a href="#" class="jqTransformSelectOpen"></a></div><ul></ul>')
+        ;
         var $ul = $('ul', $wrapper)
         $ul
-          .css({
-            width: selectWidth,
-            top: wrapperHeight
-          })
+          .css({width: selectWidth})
           .hide()
         ;
 
@@ -402,8 +398,12 @@
 
           if (!already_open && !$select.attr('disabled')) {
 
-            // Calculate width every time to adjust for any DOM changes
-            $ul.css({width: ($select.jqTransformGetDimension('width') - 1) + 'px'});
+            // Calculate dimensions every time to adjust for any DOM changes
+            $ul.css({
+              width: $select.jqTransformGetDimension('width') - 1,
+              bottom:   $wrapper.jqTransformGetDimension('outerHeight')
+            });
+            
             $ul.slideToggle('fast', function () {
               var offSet = ($('a.selected', $ul).offset().top - $ul.offset().top);
               $ul.animate({scrollTop: offSet});
